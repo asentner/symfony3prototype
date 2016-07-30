@@ -7,8 +7,6 @@ parameters:
     database_name:     symfony
     database_user:     root
     database_password: ~
-    # You should uncomment this if you want use pdo_sqlite
-    # database_path: "%kernel.root_dir%/data.db3"
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
@@ -17,3 +15,14 @@ parameters:
 
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    debug_toolbar:          true
+    debug_redirects:        false
+    php_path: /usr/local/bin/php
+
+    force_https: false
+    https_port: 443
+
+    # Swiftmailer development parameters (not applicable on prod)
+    mail_override_delivery_address: ~
+    mail_disable_delivery: false

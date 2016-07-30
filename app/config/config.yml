@@ -36,11 +36,14 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+#    form:
+#        resources:
+#            - 'AppBundle:Form:form-theme.html.twig'
 
 # Doctrine Configuration
 doctrine:
     dbal:
-        driver:   pdo_mysql
+        driver:   pdo_pgsql
         host:     "%database_host%"
         port:     "%database_port%"
         dbname:   "%database_name%"
@@ -59,6 +62,12 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
 
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/DoctrineMigrations"
+    namespace: Application\Migrations
+    table_name: migration_versions
+    name: Migrations
+
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
@@ -66,3 +75,10 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# KNP Menu Configuration - http://symfony.com/doc/master/bundles/KnpMenuBundle/index.html
+#knp_menu:
+#    twig:
+#        template: 'AppBundle:Menu:menu.html.twig'
+#    templating: false
+#    default_renderer: twig
