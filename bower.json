@@ -1,0 +1,33 @@
+{
+  "name": "symfony3prototype",
+  "license": "Proprietary",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "jquery-1.11.1#1.11.3",
+    "jquery-mask-plugin": "~1.13.4",
+    "bootstrap-sass": "bootstrap-sass-official#~3.3.6",
+    "breakpoint-sass": "^2.7.0",
+    "angular": "~1.5.3",
+    "angular-resource": "~1.5.3",
+    "angular-cookies": "~1.5.3"
+  },
+  "overrides": {
+    "bootbox": {
+      "dependencies": {
+        "bootstrap-sass-official": ">= 3.0.0"
+      }
+    },
+    "bootstrap": {
+      "ignore": true
+    }
+  },
+  "resolutions": {
+    "jquery": "1.11.3"
+  }
+}

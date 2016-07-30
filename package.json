@@ -1,0 +1,28 @@
+{
+  "name": "symfony3protype",
+  "license": "UNLICENSED",
+  "bin": "./bin",
+  "dependencies": {
+    "del": "^2.1.0",
+    "font-awesome": "^4.5.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-bower": "*",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sass-glob": "^0.0.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3",
+    "gulp-uglifycss": "^1.0.5",
+    "gulp-util": "^3.0.7",
+    "main-bower-files": "2.11.1",
+    "merge-stream": "1.0.0"
+  },
+  "scripts": {
+    "postinstall": "for i in node_modules/.bin/*; do [ -L $i ] && echo \"Creating symlink: $(pwd)/bin/$(basename $i)\" && rm -f bin/$(basename $i) && ln -s ../node_modules/$(echo $(readlink $i) | sed 's,^[^/]*/,,') bin/$(basename $i); done"
+  }
+}
