@@ -27,11 +27,17 @@
         "symfony/polyfill-apcu": "^1.0",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0"
+        "incenteev/composer-parameter-handler": "^2.0",
+        "doctrine/doctrine-migrations-bundle": "dev-master",
+        "knplabs/knp-menu-bundle": "^2.0",
+        "friendsofsymfony/jsrouting-bundle": "~1.6",
+        "friendsofsymfony/rest-bundle": "~2.0",
+        "jms/serializer-bundle": "~1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0"
+        "symfony/phpunit-bridge": "^3.0",
+        "oodle/krumo-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -57,9 +63,12 @@
         "symfony-var-dir": "var",
         "symfony-web-dir": "web",
         "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
+        "symfony-assets-install": "symlink",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
         }
+    },
+    "config": {
+        "bin-dir": "bin"
     }
 }
