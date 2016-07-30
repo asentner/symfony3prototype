@@ -1,6 +1,15 @@
 #!/usr/bin/env php
 <?php
 
+if (PHP_SAPI !== 'cli') {
+    die('Warning: This should be invoked via the CLI version of PHP, not the '.PHP_SAPI.' SAPI');
+}
+
+// Check for autoloader
+if (!file_exists(__DIR__.'/../vendor/autoload.php')) {
+    die(sprintf("\nERROR: Unable to load the autoloader. Run `composer install` from the project root: %s\n\n", dirname(__DIR__)));
+}
+
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;
@@ -10,6 +19,39 @@ use Symfony\Component\Debug\Debug;
 //umask(0000);
 
 set_time_limit(0);
+
+// Check if we can ini_set
+if (function_exists('ini_set')) {
+
+    // Enable display_errors
+    @ini_set('display_errors', 1);
+
+    // Set memory_limit
+    $memoryInBytes = function ($value) {
+        $unit = strtolower(substr($value, -1, 1));
+        $value = (int) $value;
+        switch($unit) {
+            case 'g':
+                $value *= 1024;
+            // no break (cumulative multiplier)
+            case 'm':
+                $value *= 1024;
+            // no break (cumulative multiplier)
+            case 'k':
+                $value *= 1024;
+        }
+        return $value;
+    };
+
+    $memoryLimit = trim(ini_get('memory_limit'));
+
+    // Increase memory_limit if it is lower than 1GB
+    if ($memoryLimit != -1 && $memoryInBytes($memoryLimit) < 1024 * 1024 * 1024) {
+        @ini_set('memory_limit', '1G');
+    }
+
+    unset($memoryInBytes, $memoryLimit);
+}
 
 /**
  * @var Composer\Autoload\ClassLoader $loader
@@ -26,4 +68,6 @@ if ($debug) {
 
 $kernel = new AppKernel($env, $debug);
 $application = new Application($kernel);
+$application->setName($kernel->getName());
+$application->setVersion($kernel->getFullVersion());
 $application->run($input);
