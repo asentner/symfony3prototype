@@ -5,14 +5,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
-    /**
-     * Kernel Name
-     */
-    const NAME = 'Prototype';
-
-    /**
-     * Version Defines
-     */
+    const NAME = 'Symfony3Prototype'; // No spaces
     const VERSION = '1.0.0';
     const VERSION_ID = '10000';
     const MAJOR_VERSION = '1';
@@ -75,7 +68,7 @@ class AppKernel extends Kernel
     public function getFullVersion()
     {
         return static::MAJOR_VERSION . '.' . static::MINOR_VERSION . '.' .
-        static::RELEASE_VERSION . static::EXTRA_VERSION;
+        static::RELEASE_VERSION . '-' . static::EXTRA_VERSION;
     }
 
     public function getRootDir()
