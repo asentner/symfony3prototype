@@ -1,0 +1,11 @@
+// Import Variables
+@import "variables/**/*.scss";
+
+// Import Bootstrap and Font Awesome
+@import "../../../../web/components/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "../../../../node_modules/font-awesome/scss/font-awesome.scss";
+
+// Import abstractions, base styles and components using globbing.
+@import "abstractions/**/*.scss";
+@import "base/**/*.scss";
+@import "components/**/*.scss";

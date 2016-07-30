@@ -97,15 +97,15 @@ gulp.task('copy-images', function() {
 });
 
 gulp.task('build-global-css', ['bower-install'], function() {
-    return gulp.src('app/Resources/public/scss/base.scss')
+    return gulp.src('app/Resources/public/scss/styles.scss')
         .pipe(!production ? sourcemaps.init() : util.noop())
         .pipe(sassGlob())
         .pipe(sass().on('error', errorHandler))
         .pipe(autoprefixer())
-        .pipe(concat('global.css'))
+        .pipe(concat('styles.css'))
         .pipe(production ? uglifycss() : sourcemaps.write('.'))
         .pipe(gulp.dest('web/css'))
-        .pipe(filter('web/css/global.css'))
+        .pipe(filter('web/css/styles.css'))
         .pipe(livereload());
 });
 
