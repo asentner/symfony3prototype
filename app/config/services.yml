@@ -1,9 +1,129 @@
 # Learn more about services, parameters and containers at
 # http://symfony.com/doc/current/book/service_container.html
 parameters:
-#    parameter_name: value
+    # Database session storage parameters
+    pdo.db_options:
+        db_table:    t_session
+        db_id_col:   session_id
+        db_data_col: session_value
+        db_time_col: session_time
+        db_lifetime_col: session_lifetime
+        db_username: "%database_user%"
+        db_password: "%database_password%"
+    session.handler.pdo.class: Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler
+    
+    # Bootstrap Parameters
+    app.icon.prefix: ~
+    app.icon.tag: span
+    app.twig.icon_extension.class: MyOrg\MyProject\Common\Twig\Extension\BootstrapIconExtension
+    app.twig.button_extension.class: MyOrg\MyProject\Common\Twig\Extension\BootstrapButtonExtension
+    app.twig.label_extension.class: MyOrg\MyProject\Common\Twig\Extension\BootstrapLabelExtension
+    app.twig.badge_extension.class: MyOrg\MyProject\Common\Twig\Extension\BootstrapBadgeExtension
+    app.twig.form_extension.class: MyOrg\MyProject\Common\Twig\Extension\BootstrapFormExtension
+    app.form.extension.typesetter_extension.class: MyOrg\MyProject\Common\Form\Extension\TypeSetterExtension
+    app.form.extension.button_extension.class: MyOrg\MyProject\Common\Form\Extension\ButtonTypeExtension
+    app.form.extension.static_control.class: MyOrg\MyProject\Common\Form\Extension\StaticControlExtension
+    app.form.extension.input_group_button.class: MyOrg\MyProject\Common\Form\Extension\InputGroupButtonExtension
+    app.form.type.collection.class: MyOrg\MyProject\Common\Form\Type\BootstrapCollectionType
+    app.form.type.form_actions.class: MyOrg\MyProject\Common\Form\Type\FormActionsType
+    app.form.type.form_static_control.class: MyOrg\MyProject\Common\Form\Type\FormStaticControlType
+    app.form.type.money.class: MyOrg\MyProject\Common\Form\Type\MoneyType
+    app.form.type.fieldset.class: MyOrg\MyProject\Common\Form\Type\FieldsetType
+    app.form.type.state_choice.class: MyOrg\MyProject\Common\Form\Type\StateChoiceType
+    app.form.type.mask.class: MyOrg\MyProject\Common\Form\Type\MaskType
+
+    # Listeners
+    app.event.listner.database_persist.class: MyOrg\MyProject\Common\EventListener\DatabasePersistListener
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    session.handler.pdo:
+        class: "%session.handler.pdo.class%"
+        public: false
+        arguments: ["pgsql:host=%database_host%;port=%database_port%;dbname=%database_name%", "%pdo.db_options%"]
+
+    app.twig.icon_extension:
+        class: "%app.twig.icon_extension.class%"
+        arguments: ["%app.icon.prefix%", "%app.icon.tag%"]
+        tags:
+            - { name: twig.extension }
+
+    app.twig.button_extension:
+        class: "%app.twig.button_extension.class%"
+        arguments: ["@app.twig.icon_extension"]
+        tags:
+            - { name: twig.extension }
+
+    app.twig.label_extension:
+        class: "%app.twig.label_extension.class%"
+        tags:
+            - { name: twig.extension }
+
+    app.twig.badge_extension:
+        class: "%app.twig.badge_extension.class%"
+        tags:
+            - { name: twig.extension }
+
+    app.twig.form_extension:
+        class: "%app.twig.form_extension.class%"
+        tags:
+            - { name: twig.extension }
+
+    app.form.extension.typesetter_extension:
+        class: "%app.form.extension.typesetter_extension.class%"
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType, alias: form }
+
+    app.form.extension.button_extension:
+        class: "%app.form.extension.button_extension.class%"
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\ButtonType, alias: button }
+
+    app.form.extension.static_control:
+        class: "%app.form.extension.static_control.class%"
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType, alias: form }
+
+    app.form.extension.input_group_button:
+        class: "%app.form.extension.input_group_button.class%"
+        tags:
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\FormType, alias: text }
+
+    app.form.type.collection:
+        class: "%app.form.type.collection.class%"
+        tags:
+            - { name: form.type, alias: boostrap_collection }
+
+    app.form.type.form_actions:
+        class: "%app.form.type.form_actions.class%"
+        tags:
+            - { name: form.type, alias: form_actions }
+
+    app.form.type.form_static_control:
+        class: "%app.form.type.form_static_control.class%"
+        tags:
+            - { name: form.type, alias: bs_static }
+
+    app.form.type.money:
+        class: "%app.form.type.money.class%"
+        tags:
+            - { name: form.type, alias: money }
+
+    app.form.type.fieldset:
+        class: "%app.form.type.fieldset.class%"
+        tags:
+            - { name: form.type, alias: fieldset }
+
+    app.form.type.state_choice:
+        class: "%app.form.type.state_choice.class%"
+        tags:
+            - { name: form.type, alias: state_choice }
+
+    app.form.type.mask:
+        class: "%app.form.type.mask.class%"
+        tags:
+            - { name: form.type, alias: mask }
+
+    app.event.listner.database_persist:
+        class: "%app.event.listner.database_persist.class%"
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
