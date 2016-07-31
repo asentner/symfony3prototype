@@ -37,7 +37,8 @@
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0",
-        "oodle/krumo-bundle": "dev-master"
+        "oodle/krumo-bundle": "dev-master",
+        "cg/kint-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [

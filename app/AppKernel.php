@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Oodle\KrumoBundle\OodleKrumoBundle();
+            $bundles[] = new Cg\KintBundle\CgKintBundle();
         }
 
         return $bundles;
