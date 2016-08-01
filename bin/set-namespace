@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 [org-name] [project-name]"
+    exit 1
+fi
+
+find ./src ./app -type f -print0 | xargs -0 sed -i '' -e "s/MyOrg\\\\MyProject/$1\\\\$2/g"
+
+mv src/MyOrg/MyProject src/MyOrg/$2
+mv src/MyOrg src/$1
